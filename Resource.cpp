@@ -1,18 +1,21 @@
 #include "pch.h"
+
+#include "Types.h"
 #include "Resource.h"
 
 using namespace SEngine;
 
 template <class T>
-Resource<T>::Resource(T*& resource) : rawResource(resource) {}
+Resource<T>::Resource(const T* resource) : rawResource(resource) {}
 
 template <class T>
 Resource<T>::~Resource() {
 	delete rawResource;
+	rawResource = nullptr;
 }
 
-template class Resource<sf::Image>;
-template class Resource<sf::Texture>;
-template class Resource<sf::Font>;
-template class Resource<sf::SoundBuffer>;
-template class Resource<sf::Shader>;
+template class Resource<RawImage>;
+template class Resource<RawTexture>;
+template class Resource<RawFont>;
+template class Resource<RawSoundBuffer>;
+template class Resource<RawShader>;

@@ -3,21 +3,81 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <string>
+#include <functional>
 
-#include <SFML/Graphics/Rect.hpp>
-#include <SFML/Graphics/Image.hpp>
-#include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Font.hpp>
-#include <SFML/Audio/SoundBuffer.hpp>
-#include <SFML/Graphics/Shader.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
 
 namespace SEngine {
+#pragma region std
+
+	typedef std::string String;
+
+	typedef std::function<void()> InitFunction;
+
+#pragma region containers
+
 	template <class T>
 	using Set = std::unordered_set<T>;
+
 	template <class K, class V>
 	using Map = std::unordered_map<K, V>;
-	typedef std::string String;
-	typedef Set<String> Tags;
+
+	template <class T>
+	using List = std::vector<T>;
+
+#pragma endregion containers
+
+#pragma endregion std
+	
+#pragma region sf
+	
+#pragma region audio
+
+	typedef sf::SoundBuffer RawSoundBuffer;
+
+#pragma endregion audio
+
+#pragma region graphics
+
+	typedef sf::Color Color;
+
+	typedef sf::Font RawFont;
+
+	typedef sf::Image RawImage;
+
+	typedef sf::Shader RawShader;
+
+	typedef sf::Texture RawTexture;
+
 	typedef sf::IntRect RectInt;
+
 	typedef sf::Shader::Type ShaderType;
+
+#pragma endregion graphics
+
+#pragma region network
+
+#pragma endregion network
+
+#pragma region system
+
+	typedef sf::Clock Clock;
+
+#pragma endregion system
+
+#pragma region window
+
+	typedef sf::Event Event;
+
+	typedef sf::RenderWindow Window;
+
+#pragma endregion window
+	
+#pragma endregion sf
+
+	typedef Set<String> Tags;
 }

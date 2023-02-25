@@ -1,4 +1,5 @@
 #include "pch.h"
+
 #include "Resources.h"
 
 #define LoadResource(rawType, type, loadFromFileFunction) \
@@ -15,31 +16,31 @@ using namespace SEngine;
 ResourcePool Resources::resources = {};
 
 const Image* Resources::LoadImage(const String& nickname, const String& filePath) {
-	LoadResource(sf::Image, Image, loadFromFile(filePath))
+	LoadResource(RawImage, Image, loadFromFile(filePath))
 }
 
 const Texture* Resources::LoadTexture(const String& nickname, const String& filePath, RectInt area) {
-	LoadResource(sf::Texture, Texture, loadFromFile(filePath, area))
+	LoadResource(RawTexture, Texture, loadFromFile(filePath, area))
 }
 
 const Font* Resources::LoadFont(const String& nickname, const String& filePath) {
-	LoadResource(sf::Font, Font, loadFromFile(filePath))
+	LoadResource(RawFont, Font, loadFromFile(filePath))
 }
 
 const SoundBuffer* Resources::LoadSoundBuffer(const String& nickname, const String& filePath) {
-	LoadResource(sf::SoundBuffer, SoundBuffer, loadFromFile(filePath))
+	LoadResource(RawSoundBuffer, SoundBuffer, loadFromFile(filePath))
 }
 
 const Shader* Resources::LoadShader(const String& nickname, const String& filePath, ShaderType type) {
-	LoadResource(sf::Shader, Shader, loadFromFile(filePath, type))
+	LoadResource(RawShader, Shader, loadFromFile(filePath, type))
 }
 
 const Shader* Resources::LoadShader(const String& nickname, const String& vertexShaderFilePath, const String& fragmentShaderFilePath) {
-	LoadResource(sf::Shader, Shader, loadFromFile(vertexShaderFilePath, fragmentShaderFilePath))
+	LoadResource(RawShader, Shader, loadFromFile(vertexShaderFilePath, fragmentShaderFilePath))
 }
 
 const Shader* Resources::LoadShader(const String& nickname, const String& vertexShaderFilePath, const String& geometryShaderFilePath, const String& fragmentShaderFilePath) {
-	LoadResource(sf::Shader, Shader, loadFromFile(vertexShaderFilePath, geometryShaderFilePath, fragmentShaderFilePath))
+	LoadResource(RawShader, Shader, loadFromFile(vertexShaderFilePath, geometryShaderFilePath, fragmentShaderFilePath))
 }
 
 bool Resources::Loaded(const String& nickname) {
@@ -72,8 +73,18 @@ void Resources::Unload(const String& nickname) {
 }
 
 void Resources::UnloadAll() {
-	for (auto& [key, value] : resources) {
-		delete value;
+	for (auto& [nickname, resource] : resources) {
+		delete resource;
 	}
 	resources.~ResourcePool();
+}
+
+String Resources::GetNickname(const BaseResource* resource) {
+	for (auto& [nickname, pooledResource] : resources) {
+		if (pooledResource == resource) {
+			return nickname;
+		}
+	}
+
+	return "";
 }

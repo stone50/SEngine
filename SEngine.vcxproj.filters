@@ -51,6 +51,18 @@
     <ClInclude Include="Resources.h">
       <Filter>Header Files\SEngine\Resource Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\SEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\SEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowSettings.h">
+      <Filter>Header Files\SEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Header Files\SEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Resource.cpp">
@@ -64,6 +76,15 @@
     </ClCompile>
     <ClCompile Include="Resources.cpp">
       <Filter>Source Files\SEngine\Resource Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\SEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\SEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Source Files\SEngine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

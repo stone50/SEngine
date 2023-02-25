@@ -1,9 +1,10 @@
 #pragma once
 
+#include "api.h"
 #include "Types.h"
 
 namespace SEngine {
-	class SNode
+	SENGINE_API class Node
 	{
 	public:
 		Tags tags;

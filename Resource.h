@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Types.h"
-
 namespace SEngine {
 	class BaseResource {};
 
@@ -10,15 +8,15 @@ namespace SEngine {
 		public BaseResource
 	{
 	public:
-		Resource(T*& resource);
+		Resource(const T* resource);
 
 		~Resource();
 
-		T* rawResource;
+		const T* rawResource;
 	};
-	typedef Resource<sf::Image> Image;
-	typedef Resource<sf::Texture> Texture;
-	typedef Resource<sf::Font> Font;
-	typedef Resource<sf::SoundBuffer> SoundBuffer;
-	typedef Resource<sf::Shader> Shader;
+	typedef Resource<RawImage> Image;
+	typedef Resource<RawTexture> Texture;
+	typedef Resource<RawFont> Font;
+	typedef Resource<RawSoundBuffer> SoundBuffer;
+	typedef Resource<RawShader> Shader;
 }
