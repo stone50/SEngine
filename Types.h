@@ -16,7 +16,8 @@ namespace SEngine {
 
 	typedef std::string String;
 
-	typedef std::function<void()> InitFunction;
+	template <class T>
+	using InitFunction = std::function<void(const T* initObject)>;
 
 #pragma region containers
 
@@ -32,9 +33,9 @@ namespace SEngine {
 #pragma endregion containers
 
 #pragma endregion std
-	
+
 #pragma region sf
-	
+
 #pragma region audio
 
 	typedef sf::SoundBuffer RawSoundBuffer;
@@ -50,6 +51,8 @@ namespace SEngine {
 	typedef sf::Image RawImage;
 
 	typedef sf::Shader RawShader;
+
+	typedef sf::Sprite Sprite;
 
 	typedef sf::Texture RawTexture;
 
@@ -67,16 +70,24 @@ namespace SEngine {
 
 	typedef sf::Clock Clock;
 
+	typedef sf::Vector2i Vector2Int;
+
 #pragma endregion system
 
 #pragma region window
+
+	typedef sf::ContextSettings ContextSettings;
+
+	typedef sf::Cursor Cursor;
 
 	typedef sf::Event Event;
 
 	typedef sf::RenderWindow Window;
 
+	typedef sf::VideoMode VideoMode;
+
 #pragma endregion window
-	
+
 #pragma endregion sf
 
 	typedef Set<String> Tags;

@@ -6,6 +6,6 @@
 
 using namespace SEngine;
 
-void Debug::Log(const String& message) {
+void Debug::Write(const String& message) {
 	std::cout << message;
 }

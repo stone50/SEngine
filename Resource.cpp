@@ -5,11 +5,27 @@
 
 using namespace SEngine;
 
-template <class T>
-Resource<T>::Resource(const T* resource) : rawResource(resource) {}
+String BaseResource::GetName() {
+	return name;
+}
+
+size_t BaseResource::FilePathCount() {
+	return filePaths.size();
+}
+
+String BaseResource::GetFilePath(size_t index) {
+	if (index >= filePaths.size()) {
+		return "";
+	}
+
+	return filePaths[index];
+}
 
 template <class T>
-Resource<T>::~Resource() {
+Resource<T>::Resource(const String& name, const FilePaths& filePaths, const T* resource) : name(name), filePaths(filePaths), rawResource(resource) {}
+
+template <class T>
+void Resource<T>::Unload() {
 	delete rawResource;
 	rawResource = nullptr;
 }

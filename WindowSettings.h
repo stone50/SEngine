@@ -11,31 +11,31 @@ namespace SEngine {
 
 		unsigned int iconWidth = 0;
 		unsigned int iconHeight = 0;
-		sf::Uint8* iconPixels = nullptr;
+		unsigned char* iconPixels = nullptr;
 
 		float joystickThreshold = 0.1f;
 
 		bool keyRepeatEnabled = true;
 
 		bool useDefaultCursor = true;
-		sf::Cursor mouseCursor;
+		Cursor mouseCursor;
 
 		bool mouseCursorGrabbed = false;
 
 		bool mouseCursorVisible = true;
 
-		sf::Vector2i position = sf::Vector2i(0, 0);
+		Vector2Int position = Vector2Int(0, 0);
 
-		std::string title = "";
+		String title = "";
 
 		bool verticalSyncEnabled = false;
 
 		bool visible = true;
 
-		sf::VideoMode videoMode = sf::VideoMode();
+		VideoMode videoMode = VideoMode();
 
 		unsigned int style = sf::Style::Default;
 
-		sf::ContextSettings contextSettings = sf::ContextSettings();
+		ContextSettings contextSettings = ContextSettings();
 	};
 }

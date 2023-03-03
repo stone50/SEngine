@@ -9,7 +9,7 @@ namespace SEngine {
 	class Debug
 	{
 	public:
-		SENGINE_API static void Log(const String& message);
+		SENGINE_API static void Write(const String& message);
 	};
 }
 

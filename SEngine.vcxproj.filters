@@ -31,6 +31,12 @@
     <Filter Include="Source Files\SEngine\Resource Classes">
       <UniqueIdentifier>{d57b356d-85f5-459d-bd1c-0fd5ad3667bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SEngine\Objects">
+      <UniqueIdentifier>{0c6400de-4c98-4839-8ca2-c074ad7ff6b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SEngine\Objects">
+      <UniqueIdentifier>{05dd3bda-3c28-43d5-9c0b-c2ff127877c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -41,9 +47,6 @@
     </ClInclude>
     <ClInclude Include="api.h">
       <Filter>Header Files\DLL</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Header Files\SEngine</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>Header Files\SEngine</Filter>
@@ -62,6 +65,24 @@
     </ClInclude>
     <ClInclude Include="Debug.h">
       <Filter>Header Files\SEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Header Files\SEngine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicObject.h">
+      <Filter>Header Files\SEngine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraObject.h">
+      <Filter>Header Files\SEngine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdatingObject.h">
+      <Filter>Header Files\SEngine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingObject.h">
+      <Filter>Header Files\SEngine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="InitializingObject.h">
+      <Filter>Header Files\SEngine\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +106,15 @@
     </ClCompile>
     <ClCompile Include="Debug.cpp">
       <Filter>Source Files\SEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicObject.cpp">
+      <Filter>Source Files\SEngine\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraObject.cpp">
+      <Filter>Source Files\SEngine\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="InitializingObject.cpp">
+      <Filter>Source Files\SEngine\Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

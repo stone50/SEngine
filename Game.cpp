@@ -3,26 +3,22 @@
 #include "Game.h"
 #include "Resources.h"
 
+#define ValidateIndex(index) \
+if (index >= scenes.size()) \
+{ \
+	return false; \
+}
+
 using namespace SEngine;
 
-InitFunction Game::Init = NULL;
 Window Game::window;
-bool Game::playing = false;
 Scenes Game::scenes = {};
 size_t Game::currentSceneIndex = 0;
 
 bool Game::Play(const WindowSettings& windowSettings) {
-	if (playing) {
-		return false;
-	}
-
-	Init();
-
 	if (scenes.size() == 0) {
 		return false;
 	}
-
-	playing = true;
 
 	scenes[0]->Load();
 
@@ -33,7 +29,7 @@ bool Game::Play(const WindowSettings& windowSettings) {
 	{
 		HandleWindowEvents();
 
-		if (!playing) {
+		if (!window.isOpen()) {
 			return true;
 		}
 
@@ -41,17 +37,9 @@ bool Game::Play(const WindowSettings& windowSettings) {
 
 		RenderFrame();
 	}
-
-	return true;
 }
 
 bool Game::End() {
-	if (!playing) {
-		return false;
-	}
-
-	playing = false;
-
 	scenes[currentSceneIndex]->Unload();
 
 	UnloadScenes();
@@ -63,16 +51,29 @@ bool Game::End() {
 	return true;
 }
 
-Window& Game::GetWindow() {
-	return window;
+const Scene* Game::GetCurrentScene() {
+	return scenes[currentSceneIndex];
 }
 
-void Game::AddScene(Scene* scene) {
-	scenes.push_back(scene);
+bool Game::SetCurrentScene(size_t index) {
+	ValidateIndex(index);
+
+	scenes[currentSceneIndex]->Unload();
+	currentSceneIndex = index;
+	scenes[currentSceneIndex]->Load();
+	return true;
 }
 
 size_t Game::GetCurrentSceneIndex() {
 	return currentSceneIndex;
+}
+
+size_t Game::SceneCount() {
+	return scenes.size();
+}
+
+void Game::AddScene(const InitFunction<Scene>& function) {
+	scenes.push_back(new Scene(function));
 }
 
 void Game::InitWindow(const WindowSettings& windowSettings) {
@@ -123,5 +124,5 @@ void Game::UnloadScenes() {
 	for (auto& scene : scenes) {
 		delete scene;
 	}
-	scenes.~vector();
+	scenes.~Scenes();
 }

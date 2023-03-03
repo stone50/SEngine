@@ -2,14 +2,28 @@
 
 #include "api.h"
 #include "Types.h"
+#include "CameraObject.h"
+#include "GraphicObject.h"
+#include "UpdatingObject.h"
+#include "InitializingObject.h"
 
 namespace SEngine {
+	typedef Set<CameraObject*> Cameras;
+	typedef Set<GraphicObject*> Graphics;
+	typedef Set<LoadingObject*> Loaders;
+	typedef Set<UpdatingObject*> Updaters;
+	typedef Set<InitializingObject*> Initializers;
+	typedef Set<Object*> Objects;
+
 	class Scene
 	{
 	public:
-		SENGINE_API Scene(InitFunction function);
+		Scene(const InitFunction<Scene>& function);
 
-		SENGINE_API void SetInit(InitFunction function);
+		template <class T>
+		SENGINE_API void* AddObject();
+
+		SENGINE_API bool RemoveObject(Object* object);
 
 		void Load();
 
@@ -17,11 +31,23 @@ namespace SEngine {
 
 		void Reload();
 
-		void Update(float delta);
+		void Update(const float delta);
 
 		void Render(const Window& window);
 
 	private:
-		InitFunction Init;
+		InitFunction<Scene> init;
+
+		Cameras cameras;
+
+		Graphics graphics;
+
+		Loaders loaders;
+
+		Updaters updaters;
+
+		Initializers initializers;
+
+		Objects objects;
 	};
 }

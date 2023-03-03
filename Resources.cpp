@@ -2,11 +2,16 @@
 
 #include "Resources.h"
 
-#define LoadResource(rawType, type, loadFromFileFunction) \
+#define BRACED_INIT_LIST(...) {__VA_ARGS__}
+
+#define LoadResource(rawType, type, loadFromFileFunction, filePaths) \
+if (name == "") { \
+	return nullptr; \
+} \
 rawType* rawResource = new rawType(); \
 if (rawResource->loadFromFileFunction) { \
-	type* resource = new type(rawResource); \
-	resources[nickname] = resource; \
+	type* resource = new type(name, BRACED_INIT_LIST(filePaths), rawResource); \
+	resources[name] = resource; \
 	return resource; \
 } \
 return nullptr;
@@ -15,76 +20,65 @@ using namespace SEngine;
 
 ResourcePool Resources::resources = {};
 
-const Image* Resources::LoadImage(const String& nickname, const String& filePath) {
-	LoadResource(RawImage, Image, loadFromFile(filePath))
+const Image* Resources::LoadImage(const String& name, const String& filePath) {
+	LoadResource(RawImage, Image, loadFromFile(filePath), filePath);
 }
 
-const Texture* Resources::LoadTexture(const String& nickname, const String& filePath, RectInt area) {
-	LoadResource(RawTexture, Texture, loadFromFile(filePath, area))
+const Texture* Resources::LoadTexture(const String& name, const String& filePath, const RectInt& area) {
+	LoadResource(RawTexture, Texture, loadFromFile(filePath, area), filePath);
 }
 
-const Font* Resources::LoadFont(const String& nickname, const String& filePath) {
-	LoadResource(RawFont, Font, loadFromFile(filePath))
+const Font* Resources::LoadFont(const String& name, const String& filePath) {
+	LoadResource(RawFont, Font, loadFromFile(filePath), filePath);
 }
 
-const SoundBuffer* Resources::LoadSoundBuffer(const String& nickname, const String& filePath) {
-	LoadResource(RawSoundBuffer, SoundBuffer, loadFromFile(filePath))
+const SoundBuffer* Resources::LoadSoundBuffer(const String& name, const String& filePath) {
+	LoadResource(RawSoundBuffer, SoundBuffer, loadFromFile(filePath), filePath);
 }
 
-const Shader* Resources::LoadShader(const String& nickname, const String& filePath, ShaderType type) {
-	LoadResource(RawShader, Shader, loadFromFile(filePath, type))
+const Shader* Resources::LoadShader(const String& name, const String& filePath, const ShaderType& type) {
+	LoadResource(RawShader, Shader, loadFromFile(filePath, type), filePath);
 }
 
-const Shader* Resources::LoadShader(const String& nickname, const String& vertexShaderFilePath, const String& fragmentShaderFilePath) {
-	LoadResource(RawShader, Shader, loadFromFile(vertexShaderFilePath, fragmentShaderFilePath))
+const Shader* Resources::LoadShader(const String& name, const String& vertexShaderFilePath, const String& fragmentShaderFilePath) {
+	LoadResource(RawShader, Shader, loadFromFile(vertexShaderFilePath, fragmentShaderFilePath), (vertexShaderFilePath, fragmentShaderFilePath));
 }
 
-const Shader* Resources::LoadShader(const String& nickname, const String& vertexShaderFilePath, const String& geometryShaderFilePath, const String& fragmentShaderFilePath) {
-	LoadResource(RawShader, Shader, loadFromFile(vertexShaderFilePath, geometryShaderFilePath, fragmentShaderFilePath))
+const Shader* Resources::LoadShader(const String& name, const String& vertexShaderFilePath, const String& geometryShaderFilePath, const String& fragmentShaderFilePath) {
+	String filePath = vertexShaderFilePath;
+	LoadResource(RawShader, Shader, loadFromFile(vertexShaderFilePath, geometryShaderFilePath, fragmentShaderFilePath), (vertexShaderFilePath, geometryShaderFilePath, fragmentShaderFilePath));
 }
 
-bool Resources::Loaded(const String& nickname) {
-	return resources.count(nickname);
+bool Resources::Loaded(const String& name) {
+	return resources.count(name);
 }
 
-const Image* Resources::GetImage(const String& nickname) {
-	return (Image*)resources[nickname];
+const void* Resources::Get(const String& name) {
+	try {
+		return resources.at(name);
+	}
+	catch (std::out_of_range) {
+		return nullptr;
+	}
 }
 
-const Texture* Resources::GetTexture(const String& nickname) {
-	return (Texture*)resources[nickname];
-}
-
-const Font* Resources::GetFont(const String& nickname) {
-	return (Font*)resources[nickname];
-}
-
-const SoundBuffer* Resources::GetSoundBuffer(const String& nickname) {
-	return (SoundBuffer*)resources[nickname];
-}
-
-const Shader* Resources::GetShader(const String& nickname) {
-	return (Shader*)resources[nickname];
-}
-
-void Resources::Unload(const String& nickname) {
-	delete resources[nickname];
-	resources.erase(nickname);
+bool Resources::Unload(const String& name) {
+	try {
+		BaseResource* resource = resources.at(name);
+		resource->Unload();
+		delete resource;
+		resources.erase(name);
+		return true;
+	}
+	catch (std::out_of_range) {
+		return false;
+	}
 }
 
 void Resources::UnloadAll() {
-	for (auto& [nickname, resource] : resources) {
+	for (auto& [name, resource] : resources) {
+		resource->Unload();
 		delete resource;
 	}
 	resources.~ResourcePool();
-}
-
-String Resources::GetNickname(const BaseResource* resource) {
-	for (auto& [nickname, pooledResource] : resources) {
-		if (pooledResource == resource) {
-			return nickname;
-		}
-	}
-
-	return "";
 }
