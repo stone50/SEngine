@@ -110,6 +110,11 @@ void Scene::Update(const float delta) {
 	ForObjects(updaters, object->Update(delta));
 }
 
-void Scene::Render(const Window& window) {
-	// TODO: make all camera objects render the appropriate graphic objects
+void Scene::Render(Window& window) {
+	for (auto& camera : cameras) {
+		window.setView(camera->view);
+		for (auto& graphic : graphics) {
+			window.draw(graphic->sprite);
+		}
+	}
 }

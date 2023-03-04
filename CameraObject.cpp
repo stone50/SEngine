@@ -3,4 +3,6 @@
 
 using namespace SEngine;
 
-// TODO
+View& CameraObject::GetView() {
+	return view;
+}

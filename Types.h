@@ -60,6 +60,8 @@ namespace SEngine {
 
 	typedef sf::Shader::Type ShaderType;
 
+	typedef sf::View View;
+
 #pragma endregion graphics
 
 #pragma region network

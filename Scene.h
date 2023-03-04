@@ -33,7 +33,7 @@ namespace SEngine {
 
 		void Update(const float delta);
 
-		void Render(const Window& window);
+		void Render(Window& window);
 
 	private:
 		InitFunction<Scene> init;
