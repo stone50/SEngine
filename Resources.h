@@ -5,7 +5,7 @@
 #include "Resource.h"
 
 namespace SEngine {
-	typedef Map<String, BaseResource*> ResourcePool;
+	typedef Map<std::string, BaseResource*> ResourcePool;
 
 	class Resources
 	{

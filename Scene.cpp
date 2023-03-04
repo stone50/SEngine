@@ -26,6 +26,10 @@ Scene::Scene(const InitFunction<Scene>& function) : init(function) {}
 
 template <class T>
 void* Scene::AddObject() {
+	if (!std::is_base_of<Object, T>) {
+		return nullptr;
+	}
+
 	T* newObject = new T();
 
 	bool miscObject = true;
@@ -41,8 +45,10 @@ void* Scene::AddObject() {
 	TestAdd(InitializingObject, initializers);
 
 	if (miscObject) {
-		objects.insert((Object*)newObject);
+		objects.insert(dynamic_cast<Object*>(newObject));
 	}
+
+	return newObject;
 }
 
 bool Scene::RemoveObject(Object* object) {

@@ -1,20 +1,8 @@
 #pragma once
 
-#include <unordered_set>
-#include <unordered_map>
-#include <string>
-#include <functional>
-
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-
 namespace SEngine {
-#pragma region std
 
-	typedef std::string String;
+#pragma region std
 
 	template <class T>
 	using InitFunction = std::function<void(const T* initObject)>;
@@ -71,6 +59,8 @@ namespace SEngine {
 #pragma region system
 
 	typedef sf::Clock Clock;
+
+	typedef sf::String String;
 
 	typedef sf::Vector2i Vector2Int;
 
