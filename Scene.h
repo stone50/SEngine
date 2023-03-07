@@ -20,8 +20,7 @@ namespace SEngine {
 	public:
 		Scene(const InitFunction<Scene>& function);
 
-		template <class T>
-		SENGINE_API void* AddObject();
+		SENGINE_API void AddObject(Object* object);
 
 		SENGINE_API bool RemoveObject(Object* object);
 

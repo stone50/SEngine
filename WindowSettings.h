@@ -4,7 +4,7 @@
 #include "Types.h"
 
 namespace SEngine {
-	SENGINE_API struct WindowSettings {
+	struct WindowSettings {
 		bool active = true;
 
 		unsigned int framerateLimit = 60;

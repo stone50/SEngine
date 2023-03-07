@@ -1,11 +1,20 @@
 #pragma once
 
+#include <unordered_set>
+#include <unordered_map>
+
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+
 namespace SEngine {
 
 #pragma region std
 
 	template <class T>
-	using InitFunction = std::function<void(const T* initObject)>;
+	using InitFunction = void(*) (T* initObject);
 
 #pragma region containers
 

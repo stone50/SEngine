@@ -8,24 +8,5 @@
 #define PCH_H
 
 // add headers that you want to pre-compile here
-#include <iostream>
-#include <unordered_set>
-#include <unordered_map>
-#include <string>
-#include <functional>
-
-#include <SFML/Audio.hpp>
-#include <SFML/Config.hpp>
-#include <SFML/GpuPreference.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Main.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/OpenGL.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-
-#include "api.h"
-#include "Object.h"
-#include "WindowSettings.h"
 
 #endif //PCH_H

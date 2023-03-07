@@ -24,8 +24,8 @@ using namespace SEngine;
 
 Scene::Scene(const InitFunction<Scene>& function) : init(function) {}
 
-template <class T>
-void* Scene::AddObject() {
+// TODO
+void Scene::AddObject(Object* object) {
 	if (!std::is_base_of<Object, T>) {
 		return nullptr;
 	}
